@@ -1,7 +1,11 @@
-/* Master Styles  */
+/* Master Styles Numero Uno */
 
 body {
   margin: 0px;
+  padding: 0%;
+  background: linear-gradient(120deg, #020621, #fff8e7);
+  height: 100vh;
+  overflow: hidden;
 }
 
 .container {
@@ -12,7 +16,7 @@ body {
 .nav-wrapper {
   display: flex;
   justify-content: space-between;
-  padding: 38px;
+  padding: 30px;
 }
 
 .left-side {
@@ -38,62 +42,115 @@ body {
 }
 
 .nav-link-wrapper:hover {
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid rgb(248, 242, 242);
 }
 
 .nav-link-wrapper a:hover {
-  color: black;
+  color: rgb(248, 242, 242) k;
 }
 
-/* Rest Styles  */
 
-.main-frame-wrapper {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+/*Master Styles Numero duo*/
+/* The side navigation menu */
+.sidenav {
+  height: 100%; /* 100% Full-height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0;
+  left: 0;
+  background-color: rgb(190, 183, 183); /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 }
 
-.user-first-task {
-  position: relative;
+/* The navigation menu links */
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
 }
 
-.Upload-har-file {
-  height: 350px;
-  width: 100%;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+  color: #f1f1f1;
 }
 
-.img-text-wrapper {
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
   position: absolute;
   top: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+  transition: margin-left .5s;
+  padding: 20px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+
+
+
+/* Paragraphos gia to header*/
+
+.header{
   text-align: center;
-  padding-left: 100px;
-  padding-right: 100px;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  width: 100%;
 }
 
-.logo-wrapper img {
-  width: 50%;
-  margin-bottom: 20px;
+.header span{
+color: white;
+text-transform: uppercase;
+display: block;
+
 }
 
-.img-text-wrapper:hover .subtitle {
-  font-weight: 600;
-  color: lightseagreen;
+.text1{
+font-size: 60px;
+font-weight: 700;
+letter-spacing: 8px;
+margin-bottom: 20px;
+position: relative;
+animation: text 2s 1;
 }
 
-.img-text-wrapper .subtitle {
-  transition: 1s;
-  font-weight: 600;
-  color: transparent;
+.text2{
+font-size: 30px;
+color: antiquewhite;
 }
 
-.img-darken {
-  transition: 1s;
-  filter: brightness(10%);
+
+
+@keyframes text{
+  0%{
+    color: #020621;
+    margin-bottom: -40px;
+  }
+  30%{
+    letter-spacing: 25px;
+    margin-bottom: -40%;
+  }
+
+  85%{
+    letter-spacing: 8px;
+    margin-bottom: -40%;
+  }
+
 }

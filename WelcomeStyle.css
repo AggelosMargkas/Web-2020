@@ -10,10 +10,10 @@ body {
 .center {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 75%;
   transform: translate(-50%, -50%);
-  width: 400px;
-  background-color: white;
+  width: 300px;
+  background-color: rgb(249, 255, 251);
   border-radius: 10px;
 }
 
@@ -24,7 +24,7 @@ body {
 }
 
 .center form {
-  padding: 40px;
+  padding: 20px;
   box-sizing: border-box;
 }
 
