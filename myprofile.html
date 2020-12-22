@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>My Profile</title>
+	<link rel="stylesheet" href="stylemyprof.css">
+</head>
+
+<body>
+	
+	<div class="my-profile">
+		<h1>My Profile</h1>
+		<form action = "updateinfo.php" method="post">
+			<input type="password" name="old_password" class="input-box" placeholder="Enter your current password" required>
+
+			<input type="text" name="old_username" class="input-box" placeholder="Enter your current username">
+			<input type="text" name="username" class="input-box" placeholder="Enter your new username">
+			<button type="submit" class="btn" name="btn1"> Update </button>
+
+			<input type="password" name="password" class="input-box" placeholder="Enter your new password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}" title="Must contain at least one number, one uppercase and lowercase letter, one symbol and be at least 8 characters">
+			<input type="password" name="cpassword" class="input-box" placeholder= "Confirm your new password" required>
+			<button type="submit" class="btn" name="btn2"> Update </button>
+
+			<a class="button" href="WelcomeUser.html">HOME</a>
+		</form>
+	</div>
+
+	<script type="checkpsw.js"></script>
+
+</body>
+</html>

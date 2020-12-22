@@ -1,0 +1,19 @@
+body
+{
+	margin: 0;
+	padding: 0;
+	font-family: montserrat;
+	background: linear-gradient(120deg, #020621, #fff8e7);
+	height: 100vh;
+  	overflow: hidden;
+}
+
+#mapid
+{
+	position: center;
+	height: 300px;
+	width: 700px;
+	margin: 300px;
+	bottom: 200px;
+	left: 100px;
+}
