@@ -66,3 +66,40 @@ h1{
   font-size: 14px;
   text-align: center;
 }
+
+/* Style buttons */
+.locallyDownload {
+  background-color: rgb(113, 148, 182);
+  position: absolute;
+  border: none;
+  top: 70%;
+  left: 30%;
+  color: white;
+  padding: 12px 40px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* Darker background on mouse-over */
+.locallyDownload:hover {
+  background-color: rgb(175, 181, 199);
+}
+
+
+/* Style buttons */
+.uploadToSystem {
+  position: absolute;
+  top: 70%;
+  left: 60%;
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 12px 40px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* Darker background on mouse-over */
+.uploadToSystem:hover {
+  background-color: RoyalBlue;
+}

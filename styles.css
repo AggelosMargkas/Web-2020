@@ -103,8 +103,26 @@ body {
   .sidenav a {font-size: 18px;}
 }
 
+/*css gia to upload button ton har*/
+.btn{
+  border: 1px solid #2b353b;
+  background: none;
+  padding: 100px 20px;
+  font-size: 20px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  cursor: pointer;
+  margin: 10px;
+}
 
+.btn1,.btn2{
+  color:#020621;
 
+}
+.btn1:hover,.btn2:hover{
+
+  color: #020621;
+
+}
 
 /* Paragraphos gia to header*/
 
