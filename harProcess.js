@@ -123,7 +123,7 @@ input.addEventListener('change', function(e) {
             var temp_req = {};
             var temp_res = {};
             var counter_res = 0;
-           
+        
 
             AnEntrie.request.method = Method[r];
             //console.log(AnEntrie.request.method);
