@@ -111,7 +111,7 @@ input.addEventListener('change', function(e) {
         for(var r=0; r<harEntries.length; r++){
 
             //magic
-            let AnEntrie = {
+            var AnEntrie = {
                 request :   {},
                 response : {},
                 Ip : {},
@@ -120,8 +120,13 @@ input.addEventListener('change', function(e) {
                 Headers : [{}]
             };
 
+            var temp_req = {};
+            var temp_res = {};
+            var counter_res = 0;
+           
+
             AnEntrie.request.method = Method[r];
-            console.log(AnEntrie.request.method);
+            //console.log(AnEntrie.request.method);
             AnEntrie.request.url = DomainUrl[r];
             AnEntrie.response.status = Status[r];
             AnEntrie.response.statusText = statusText[r];
@@ -140,52 +145,67 @@ input.addEventListener('change', function(e) {
             for(var t=0; t< harEntries[r].request.headers.length;t++){
                    
                    var typeOfHeader =  data.log.entries[r].request.headers[t].name.match(/^(Cache-Control|Pragma|Host|Content-Type|Last-Modified|Expires|Age)$/);
-                 
 
-                   if(typeOfHeader != null){
+
+
+                   //console.log(typeOfHeader);
+                   if(typeOfHeader != null && typeOfHeader[0] != undefined){
                      
                        //console.log("Vrika sto " +r, ": " + typeOfHeader, "me timi :" +harEntries[r].request.headers[t].value);
-                        let temp_req = {};
-                        temp_req.name = typeOfHeader;
+                        
+                        //temp_req.name = typeOfHeader;
 
-                        console.log("To typeOf Header sto request phre timi:  " +typeOfHeader);
+                        //console.log("To typeOf Header sto request phre timi:  " +typeOfHeader);
 
 
-                        temp_req.name = harEntries[r].request.headers[t].name;
+                        temp_req.name = typeOfHeader[0];//harEntries[r].request.headers[t].name;
                         temp_req.value = harEntries[r].request.headers[t].value;
                         //AnEntrie.Headers[t].name = harEntries[r].request.headers[t].name;
                         //AnEntrie.Headers[t].value = harEntries[r].request.headers[t].value;
                         //console.log("Temporary object of request header sto " +r,"einai : " +temp_req.value);
+                        console.log(temp_req);
+                        console.log(+r,". Pairnw apo to request "+t," ->" +temp_req.name, "kai exei value : " +temp_req.value);
 
-                         AnEntrie.Headers[t] = temp_req;  
+
+                         AnEntrie.Headers[counter_res] = temp_req;  
+                         counter_res = counter_res + 1;
                    }
                                                 
             }
 
-            for(var y=0; y< harEntries[r].response.headers.length;y++){
+            console.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeee : " + counter_res);
+            
+            for(var y=0; y< harEntries[r].response.headers.length; y++){
 
-                var typeOfHeader =  data.log.entries[r].response.headers[y].name.match(/^(Cache-Control|Pragma|Host|Content-Type|Last-Modified|Expires|Age)$/);
+                
+                var typeOfHeader =  data.log.entries[r].response.headers[y].name.match(/^(Cache-Control|Pragma|Host|Content-Type|Last-Modified|Expires|Age|content-Type|pragma|expires|cache-control|host|content-type|last-modified|age)$/);
    
-
 
                 if(typeOfHeader != null){
 
+                       //console.log(typeOfHeader[0]);
+
+
                        // console.log("Vrika sto " +r, ": " + typeOfHeader, "me timi :" +harEntries[r].response.headers[y].value);
-                        let temp_res = {};
                         temp_res.name = harEntries[r].response.headers[y].name;
                         temp_res.value = harEntries[r].response.headers[y].value;
-                        
-                        console.log("To typeOf Header sto response phre timi:  " +typeOfHeader);
+                        //console.log(+r, ". Pairnw apo to response " +temp_res.name, "kai exei value : " +temp_res.value);
+                        console.log(temp_res);
+                        AnEntrie.Headers[counter_res] = JSON.parse(JSON.stringify(temp_res)); 
+                        counter_res = counter_res + 1;
 
+                        //console.log("To typeOf Header sto response phre timi:  " +typeOfHeader);
                         //console.log("Temporary object of request header sto " +r,"einai : " +temp_res.name, " " +temp_res.value);
-
                        //AnEntrie.Headers[t].name = harEntries[r].response.headers[t].name;
                        // AnEntrie.Headers[t].value = harEntries[r].response.headers[t].value;
-                       AnEntrie.Headers[y] = temp_res; 
+
+                      
+
                 }
                                           
             }
             
+
             MainObject.entries[r] = AnEntrie;
            // console.log(MainObject.entries[r]);
         }
