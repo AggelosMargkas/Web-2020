@@ -88,7 +88,7 @@ input.addEventListener('change', function(e) {
             timings.push(harEntries[i].timings.wait);
             DomainUrl.push(extractHostname(harEntries[i].request.url));
             
-            fetch('http://ip-api.com/json/' + serverIP[i])
+            fetch('https://freegeoip.app/json/' + serverIP[i])
                 .then(function(response) {
                     response.json().then(jsonData => {
                     console.log(jsonData);
