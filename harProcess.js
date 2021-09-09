@@ -1,6 +1,10 @@
+//KSEKINAME ME TA CALLBACK GIA NA APROUME TA DEDOMENA TOU XRHSTH SXETIKA ME TIN IP TOU 
+//XRISIMOPOIOUME TO IP-API
+
 const successCallback = (position) =>{
 
     console.log(position);
+
 };
 
 
@@ -10,19 +14,41 @@ const errorCallback = (error) =>{
 
 navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
 
-fetch('http://ip-api.com/json/')
-.then(function(response) {
+
+//efarmozw to ip-api gia na parw ta network data mesw ths ip
+fetch('http://ip-api.com/json/').then(function(response) {
   response.json().then(jsonData => {
+      
     console.log(jsonData);
+    userIsp = jsonData.isp;
+    console.log(userIsp);
+    userLat = jsonData.lat;
+    console.log(userLat);
+    userLon = jsonData.lon;
+    console.log(userLon);
+    userServer = jsonData.query;
+    console.log(userServer);
+
+    ipUserData = [userIsp, userServer, userLat, userLon];
+    document.getElementById('myField2').value = JSON.stringify(ipUserData);
+
   });
+
 })
 .catch(function(error) {
   console.log(error)
 });
 
-const input = document.getElementById('HarFile')
-var i;
 
+
+
+
+//PERNOUME TO HAR POU EVALE O XRISTIS ASUGXRONA TO HAR FILE POU EVALE O XRHSTES
+const input = document.getElementById('HarFile')
+
+
+//ORIZOUME OLES TI METAVLITES POU THA XREIASTOUME
+var i;
 var Method = [];
 var startedDateTime = []; 
 var Status = [];
@@ -30,57 +56,56 @@ var statusText = [];
 var serverIP = [];
 var timings = [];
 var DomainUrl = []; 
-
-function download(filename, dataShit){
-
-    //create a blob
-    const blob = new Blob([dataShit], {type: "text/har"});  
-
-    downloadFile(blob, filename);
-}
-
-function downloadFile(blob, filename){
-
-    const url = window.URL.createObjectURL(blob, filename);
-
-    const  a = document.createElement("a");
-
-    a.href = url;
-    a.download = filename;
-
-    a.click();
-}
-
-var MainObject = {
-    entries : []
-};
+var serverIp_visited = [];
+var serverLat_visited = [];
+var serverLon_visited = [];
+var Visited_servers_Data = [];
 var inputFileName;
 
-//ksekiname na diavazoyme to arxeio har
+
+//MAS ENDIAFEROUN TA ENTRIES OPOTE STO TELOS THELOUME NA EXOUME ENA MAIN OBJECT POU NA EXEI MONO TA ENTRIES FILTRARISMENA
+var MainObject = {
+
+    entries : []
+
+};
+
+
+//KSEKINAEI H EPEJERGASIA TOU ARXEIOU
 input.addEventListener('change', function(e) {
+
+    
+
 
     inputFileName = input.files[0].name;
     console.log("Arxeio pou mpike " + inputFileName);
    
+    //XRISIMOPOIOUME TON FILE READER KAI ME TH SUNARTHSH ONLOAD KANOUME OLI THN DOULEIA
     const reader = new FileReader()
     
     
     reader.onload = function(){
 
+        //PAIRNOUME TO HAS KAI TO PARSAROUME
         var periexomeno = reader.result;
-        //console.log(periexomeno);  
        
         var data = JSON.parse(periexomeno);          
         console.log(data);
 
-        
+        //KAI PERNOUME TA ENTRIES
         var harEntries = data.log.entries;
      
         
+
+        //APO EDW KAI PERA EINAI O KATHARISMOS TWN DEDOMENWN OPOU APO TO KATHE ENTRIE KATHARIZOUME OTI DEN MAS EPITREPETE
+        //KATHWS KAI PERNOUME OTI XREIAZETAI.
         for(i = 0; i< harEntries.length; i++){
+
             if(harEntries[i].startedDateTime){
                startedDateTime.push(harEntries[i].startedDateTime);
             }
+
+            //GIA KATHE PEDIO PERNOUME OLA TA DEDOMENA POY EXEI
             Method.push(harEntries[i].request.method);
             Status.push(harEntries[i].response.status);
             statusText.push(harEntries[i].response.statusText);
@@ -88,25 +113,40 @@ input.addEventListener('change', function(e) {
             timings.push(harEntries[i].timings.wait);
             DomainUrl.push(extractHostname(harEntries[i].request.url));
             
+
+            //GIA NA PAROUME TA DEDOMENA TON SERVER POU EPISKEFTIKE O XRISTIS KANOUME XRISH ENOS ALLOU API
+            //TO FREEGEOIP APODIKTIKE TO KALITERO GIATI EPITREPEI TA PERISSOTERA REQUEST GIA DEDOMENA ANA WRA SE SXESI ME TA ALLA API
             fetch('https://freegeoip.app/json/' + serverIP[i])
                 .then(function(response) {
                     response.json().then(jsonData => {
                     console.log(jsonData);
+                    
+
+                    Visited_servers_Data.push({
+                        serverIp_visited : jsonData.ip,
+                        serverLat_visited : jsonData.latitude,
+                        serverLon_visited : jsonData.longitude
                     });
+
+                    if(i = harEntries.length -1 ){
+                        document.getElementById('myField3').value = JSON.stringify(Visited_servers_Data);
+                    }
+                });
                 })
                 .catch(function(error) {
                     console.log(error)
                 });
           
-            //console.log(harEntries[i].request.method, harEntries[i].request.url);
-           // console.log(harEntries[i].response.status, harEntries[i].response.statusText, harEntries[i].serverIPAddress, harEntries[i].timings.wait);
-            //console.log(Method[i]);
-            //sessionStorage.setItem("Method", harEntries[i].request.method);
+ 
 
         }
-
+            
 
        
+        //AFOU EXOUME PAREI OTI XREIAZOMASTE FTIAXNOUME MIA LOOPA GIA NA PERNAME ENA ENA TA ENTRIES
+        //MESA STO MAIN OBJECT
+        //SXIMATIZOUME MIA TOPIKI METAVLITI TYPOU JS 
+        //KAI ME FOR GEMIZOUME SIGA SIGA TO MAIN OBJECT.
 
         for(var r=0; r<harEntries.length; r++){
 
@@ -117,7 +157,8 @@ input.addEventListener('change', function(e) {
                 Ip : {},
                 timings : {},
                 startedDateTime : {},
-                Headers : [{}]
+                Headers_request : [{}],
+                Headers_response : [{}]
             };
 
             var temp_req = {};
@@ -126,113 +167,70 @@ input.addEventListener('change', function(e) {
         
 
             AnEntrie.request.method = Method[r];
-            //console.log(AnEntrie.request.method);
             AnEntrie.request.url = DomainUrl[r];
             AnEntrie.response.status = Status[r];
             AnEntrie.response.statusText = statusText[r];
-            //console.log(AnEntrie.response.statusText);
             AnEntrie.Ip.serverIPAddress = serverIP[r];
-           // console.log(AnEntrie.Ip.serverIPAddress);
             AnEntrie.timings.wait = timings[r];
-           // console.log(AnEntrie.timings.wait);
             AnEntrie.startedDateTime.startedDateTime = startedDateTime[r];
                         
-            //console.log(AnEntrie);
-            
-           // console.log("Headers pou uparxoun sto request : " +harEntries[r].request.headers.length);
-            //console.log("Headers poy yparxoun sto respons : "+harEntries[r].response.headers.length);
 
+            //GIA TA HEADER XRIASTIKE H XRHSH REGEX
             for(var t=0; t< harEntries[r].request.headers.length;t++){
                    
-                   var typeOfHeader =  data.log.entries[r].request.headers[t].name.match(/^(Cache-Control|Pragma|Host|Content-Type|Last-Modified|Expires|Age)$/);
+                var typeOfHeader =  data.log.entries[r].request.headers[t].name.match(/^(Cache-Control|Pragma|Host|Content-Type|Last-Modified|Expires|Age|content-Type|pragma|expires|cache-control|host|content-type|last-modified|age|:method)$/);
 
 
-
-                   //console.log(typeOfHeader);
                    if(typeOfHeader != null && typeOfHeader[0] != undefined){
-                     
-                       //console.log("Vrika sto " +r, ": " + typeOfHeader, "me timi :" +harEntries[r].request.headers[t].value);
-                        
-                        //temp_req.name = typeOfHeader;
 
-                        //console.log("To typeOf Header sto request phre timi:  " +typeOfHeader);
-
-
-                        temp_req.name = typeOfHeader[0];//harEntries[r].request.headers[t].name;
+                        temp_req.name = typeOfHeader[0];
                         temp_req.value = harEntries[r].request.headers[t].value;
-                        //AnEntrie.Headers[t].name = harEntries[r].request.headers[t].name;
-                        //AnEntrie.Headers[t].value = harEntries[r].request.headers[t].value;
-                        //console.log("Temporary object of request header sto " +r,"einai : " +temp_req.value);
-                        console.log(temp_req);
-                        console.log(+r,". Pairnw apo to request "+t," ->" +temp_req.name, "kai exei value : " +temp_req.value);
+                        //console.log(temp_req);
+                        console.log(y +". STO " +temp_req.name + " einai toso ===>" +temp_req.value);
 
 
-                         AnEntrie.Headers[counter_res] = temp_req;  
-                         counter_res = counter_res + 1;
-                   }
+                        AnEntrie.Headers_request[counter_res] = temp_req;  
+                        counter_res = counter_res + 1;
+
+                    }
                                                 
             }
 
-            console.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeee : " + counter_res);
             
             for(var y=0; y< harEntries[r].response.headers.length; y++){
 
                 
-                var typeOfHeader =  data.log.entries[r].response.headers[y].name.match(/^(Cache-Control|Pragma|Host|Content-Type|Last-Modified|Expires|Age|content-Type|pragma|expires|cache-control|host|content-type|last-modified|age)$/);
+                var typeOfHeader =  data.log.entries[r].response.headers[y].name.match(/^(Cache-Control|Pragma|Host|Content-Type|Last-Modified|Expires|Age|content-Type|pragma|expires|cache-control|host|content-type|last-modified|age|:method)$/);
    
 
                 if(typeOfHeader != null){
 
-                       //console.log(typeOfHeader[0]);
-
-
-                       // console.log("Vrika sto " +r, ": " + typeOfHeader, "me timi :" +harEntries[r].response.headers[y].value);
+                        //console.log(typeOfHeader);
                         temp_res.name = harEntries[r].response.headers[y].name;
                         temp_res.value = harEntries[r].response.headers[y].value;
-                        //console.log(+r, ". Pairnw apo to response " +temp_res.name, "kai exei value : " +temp_res.value);
-                        console.log(temp_res);
-                        AnEntrie.Headers[counter_res] = JSON.parse(JSON.stringify(temp_res)); 
+
+                        AnEntrie.Headers_response[counter_res] = JSON.parse(JSON.stringify(temp_res)); 
                         counter_res = counter_res + 1;
-
-                        //console.log("To typeOf Header sto response phre timi:  " +typeOfHeader);
-                        //console.log("Temporary object of request header sto " +r,"einai : " +temp_res.name, " " +temp_res.value);
-                       //AnEntrie.Headers[t].name = harEntries[r].response.headers[t].name;
-                       // AnEntrie.Headers[t].value = harEntries[r].response.headers[t].value;
-
-                      
-
                 }
-                                          
             }
             
 
             MainObject.entries[r] = AnEntrie;
-           // console.log(MainObject.entries[r]);
         }
 
-       
-       // console.log(MainObject);
 
 
+        //GIA TIN METAFORA TOU OBJECT TO KANOUME STRINGIFY WSTE NA MPOREI NA METAFERTHEI STO SAVETODB GIA NA GINEI EPEKSERGASIA ANEVASMATOS STHN VASI
+        console.log(MainObject);
+        el = JSON.stringify(MainObject);
+        //console.log(el)
+        document.getElementById('myField1').value = el;
 
-
-       //apothikeuw sto session storage topika tis plirofories pou thelw
-        sessionStorage.setItem("allMethods", Method);
-        sessionStorage.setItem("startesDateTime", startedDateTime);
-        sessionStorage.setItem("status", Status);
-        sessionStorage.setItem("StatusText", statusText);
-        sessionStorage.setItem("ServerIP", serverIP);
-        sessionStorage.setItem("Timings", timings);
-        sessionStorage.setItem("Domain", DomainUrl);
-
-        
-        
 
     }
-  
+
 
     reader.readAsText(input.files[0]);
-    console.log(MainObject);
   
 
 }, false)
@@ -242,10 +240,11 @@ input.addEventListener('change', function(e) {
 
 
 
-// einai sinartisi gia na pernoume to domain
+// ME AUTH THN SUNARTISI KATHARIZOUME TA URL GIA NA PERNOUME KATHARA TA DOMAIN OPOU UPARXOUN DEDOMENA
 function extractHostname(url) {
+
+
     var hostname;
-    //find & remove protocol (http, ftp, etc.) and get hostname
 
     if (url.indexOf("//") > -1) {
         hostname = url.split('/')[2];
@@ -254,12 +253,40 @@ function extractHostname(url) {
         hostname = url.split('/')[0];
     }
 
-    //find & remove port number
+    
     hostname = hostname.split(':')[0];
-    //find & remove "?"
     hostname = hostname.split('?')[0];
 
     return hostname;
 }
 
+
+
+//GIA TO ACTION TOU DOWNLOAD XREIAZETAI I METATROPI TOU ARXEIOY SE BLOB 
+//GINETAI I XRISI TON DYO PARAKATV SUNARTISEWN 
+//FTIAXNOUME TO BLOB STIN PRWTI KAI STHN DEUTERI GIA NA TO KATEVASI O XRISTI PREPEI NA GINEI STHN MORFI URL 
+//TOU DINOUME ONOMA KAI PERIEXOMAI KAI ME TO CLICK GINETAI TO DOWNLOAD
+
+function download(filename, dataShit){
+
+    //create a blob
+    const blob = new Blob([dataShit], {type: "text/har"});  
+
+    downloadFile(blob, filename);
+}
+
+
+
+function downloadFile(blob, filename){
+
+    const url = window.URL.createObjectURL(blob, filename);
+   //https://phppot.com/php/mysql-blob-using-php/
+    const  a = document.createElement("a");
+
+      a.href = url;
+      a.download = filename;
+
+      a.click();
+
+}
 

@@ -1,7 +1,6 @@
 "use strict";
 
-var successCallback = function successCallback(position) {
-  console.log(position);
+var successCallback = function successCallback(position) {//console.log(position);
 };
 
 var errorCallback = function errorCallback(error) {
@@ -10,8 +9,7 @@ var errorCallback = function errorCallback(error) {
 
 navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
 fetch('http://ip-api.com/json/').then(function (response) {
-  response.json().then(function (jsonData) {
-    console.log(jsonData);
+  response.json().then(function (jsonData) {//console.log(jsonData);
   });
 })["catch"](function (error) {
   console.log(error);
@@ -35,11 +33,29 @@ function download(filename, dataShit) {
 }
 
 function downloadFile(blob, filename) {
-  var url = window.URL.createObjectURL(blob, filename);
+  var url = window.URL.createObjectURL(blob, filename); //https://phppot.com/php/mysql-blob-using-php/
+
   var a = document.createElement("a");
   a.href = url;
   a.download = filename;
   a.click();
+}
+
+function fromJStoPHP(filename, dataShit) {
+  //create a blob
+  var blob = new Blob([dataShit], {
+    type: "text/har"
+  });
+  returnObject(blob, filename);
+}
+
+function returnObject(blob, filename) {
+  var url = window.URL.createObjectURL(blob, filename); //https://phppot.com/php/mysql-blob-using-php/
+
+  var a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  return a; //a.click();
 }
 
 var MainObject = {
@@ -53,7 +69,7 @@ input.addEventListener('change', function (e) {
   var reader = new FileReader();
 
   reader.onload = function () {
-    var periexomeno = reader.result; //console.log(periexomeno);  
+    var periexomeno = reader.result; //console.log(JSON.stringify(periexomeno));  
 
     var data = JSON.parse(periexomeno);
     console.log(data);
@@ -70,16 +86,12 @@ input.addEventListener('change', function (e) {
       serverIP.push(harEntries[i].serverIPAddress);
       timings.push(harEntries[i].timings.wait);
       DomainUrl.push(extractHostname(harEntries[i].request.url));
-      fetch('http://ip-api.com/json/' + serverIP[i]).then(function (response) {
-        response.json().then(function (jsonData) {
-          console.log(jsonData);
+      fetch('https://freegeoip.app/json/' + serverIP[i]).then(function (response) {
+        response.json().then(function (jsonData) {//console.log(jsonData);
         });
       })["catch"](function (error) {
         console.log(error);
-      }); //console.log(harEntries[i].request.method, harEntries[i].request.url);
-      // console.log(harEntries[i].response.status, harEntries[i].response.statusText, harEntries[i].serverIPAddress, harEntries[i].timings.wait);
-      //console.log(Method[i]);
-      //sessionStorage.setItem("Method", harEntries[i].request.method);
+      });
     }
 
     for (var r = 0; r < harEntries.length; r++) {
@@ -121,15 +133,14 @@ input.addEventListener('change', function (e) {
           temp_req.value = harEntries[r].request.headers[t].value; //AnEntrie.Headers[t].name = harEntries[r].request.headers[t].name;
           //AnEntrie.Headers[t].value = harEntries[r].request.headers[t].value;
           //console.log("Temporary object of request header sto " +r,"einai : " +temp_req.value);
+          //  console.log(temp_req);
+          //console.log(+r,". Pairnw apo to request "+t," ->" +temp_req.name, "kai exei value : " +temp_req.value);
 
-          console.log(temp_req);
-          console.log(+r, ". Pairnw apo to request " + t, " ->" + temp_req.name, "kai exei value : " + temp_req.value);
           AnEntrie.Headers[counter_res] = temp_req;
           counter_res = counter_res + 1;
         }
-      }
+      } // console.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeee : " + counter_res);
 
-      console.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeee : " + counter_res);
 
       for (var y = 0; y < harEntries[r].response.headers.length; y++) {
         var typeOfHeader = data.log.entries[r].response.headers[y].name.match(/^(Cache-Control|Pragma|Host|Content-Type|Last-Modified|Expires|Age|content-Type|pragma|expires|cache-control|host|content-type|last-modified|age)$/);
@@ -139,8 +150,8 @@ input.addEventListener('change', function (e) {
           // console.log("Vrika sto " +r, ": " + typeOfHeader, "me timi :" +harEntries[r].response.headers[y].value);
           temp_res.name = harEntries[r].response.headers[y].name;
           temp_res.value = harEntries[r].response.headers[y].value; //console.log(+r, ". Pairnw apo to response " +temp_res.name, "kai exei value : " +temp_res.value);
+          // console.log(temp_res);
 
-          console.log(temp_res);
           AnEntrie.Headers[counter_res] = JSON.parse(JSON.stringify(temp_res));
           counter_res = counter_res + 1; //console.log("To typeOf Header sto response phre timi:  " +typeOfHeader);
           //console.log("Temporary object of request header sto " +r,"einai : " +temp_res.name, " " +temp_res.value);
@@ -150,21 +161,15 @@ input.addEventListener('change', function (e) {
       }
 
       MainObject.entries[r] = AnEntrie; // console.log(MainObject.entries[r]);
-    } // console.log(MainObject);
-    //apothikeuw sto session storage topika tis plirofories pou thelw
+    }
 
-
-    sessionStorage.setItem("allMethods", Method);
-    sessionStorage.setItem("startesDateTime", startedDateTime);
-    sessionStorage.setItem("status", Status);
-    sessionStorage.setItem("StatusText", statusText);
-    sessionStorage.setItem("ServerIP", serverIP);
-    sessionStorage.setItem("Timings", timings);
-    sessionStorage.setItem("Domain", DomainUrl);
+    console.log(MainObject);
+    el = JSON.stringify(MainObject);
+    console.log(el);
+    document.getElementById('myField').value = el;
   };
 
   reader.readAsText(input.files[0]);
-  console.log(MainObject);
 }, false); // einai sinartisi gia na pernoume to domain
 
 function extractHostname(url) {

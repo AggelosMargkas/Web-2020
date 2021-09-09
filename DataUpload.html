@@ -4,7 +4,7 @@
 <head>
     <title>Drag and Drop Har File</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="urf-8">
+    <meta charset="utf-8">
     <link rel="shortcut icun" href="">
     <link rel="stylesheet" href="DataUpload_style.css">
     <link rel="stylesheet" href="styles.css">
@@ -56,16 +56,27 @@
             </div>
         </div>
 
-        <!-- Add icon library -->
         <link rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-        <!-- Auto width -->
         <button class="locallyDownload" onclick="download(inputFileName, JSON.stringify(MainObject))"><i
                 class="fa fa-download"></i>
             Download</button>
-        <button class="uploadToSystem">Database</button>
+        <form action="savetodb_test3.php" method="POST">
+
+            <input type="hidden" name="Filtrarismeno" id="myField1" value="" />
+            <input type="hidden" name="Ips" id="myField2" value="" />
+            <input type="hidden" name="serverIp_visited" id="myField3" value="" />
+            <input type="hidden" name="serverLat_visited" id="myField4" value="" />
+            <input type="hidden" name="serverLon_visited" id="myField5" value="" />
+            <button class="uploadToSystem">Database</button>
+
+
+        </form>
+
     </div>
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="psl.min.js"></script>
     <script src="DataUpload_fuction.js"></script>
     <script src="index_js.js"></script>

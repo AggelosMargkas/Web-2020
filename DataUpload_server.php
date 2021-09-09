@@ -1,7 +1,7 @@
 <?php
 
 
-//what does php receives?
+//what does php receives
 var_dump($_FILES);
 
 

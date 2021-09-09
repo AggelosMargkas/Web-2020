@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="stylemap.css">
+	<link rel="stylesheet" href="styles.css">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css">
+	<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/heatmapjs@2.0.2/heatmap.js "></script>
+	<script src="https://cdn.rawgit.com/pa7/heatmap.js/develop/plugins/leaflet-heatmap/leaflet-heatmap.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+	<div id="mySidenav" class="sidenav">
+		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+		<a href="WelcomeUser.php">Home</a>
+		<a href="DataUpload.php">Upload Har</a>
+		<a href="heatmap.html">My stats</a>
+		<a href="myprofile.php">My account</a>
+		<a href="logout.php">Logout</a>
+	</div>
+
+
+	<div id="main">
+		<div class="container">
+
+			<div class="nav-wrapper">
+
+				<div class="left-side">
+
+					<div class="nav-link-wrapper">
+
+						<a><span onclick="openNav()">Menu</span></a>
+
+					</div>
+
+				</div>
+
+			</div>
+
+			<input type='button' onclick='parededomena()' value='sdvsdvL' />
+			<div id="txtHint"><b>Πληροφορία σχετικά με την επιλογή...</b></div>
+
+			<div id="mapid"></div>
+
+
+</body>
+<script src="heatData_function.js">	</script>
+<script src="index_js.js"></script>
+
+</html>

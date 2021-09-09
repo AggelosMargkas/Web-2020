@@ -1,0 +1,6 @@
+{
+    "require": {
+        "halaxa/json-machine": "^0.5.0",
+        "salsify/json-streaming-parser": "^8.2"
+    }
+}
