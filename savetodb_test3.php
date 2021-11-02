@@ -1,5 +1,7 @@
 <?php
-//????header('location:   DataUpload.html');
+
+
+ob_start();
 
 require_once 'vendor/autoload.php';
 
@@ -216,6 +218,19 @@ foreach ($fruits as $entries => $value) {
         $stmt->execute();
     }
 }
+
+
+header("Location: DataUpload.html");
+
+ob_end_flush();
+
+echo '<script type="text/javascript">alert("Upload succesful!");</script>';
+
+
+
+
+
+
 
 /***************************************************************************************************************************************** */
 /***************************************************************************************************************************************** */

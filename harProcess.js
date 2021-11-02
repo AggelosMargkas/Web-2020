@@ -81,7 +81,7 @@ input.addEventListener('change', function(e) {
     console.log("Arxeio pou mpike " + inputFileName);
    
     //XRISIMOPOIOUME TON FILE READER KAI ME TH SUNARTHSH ONLOAD KANOUME OLI THN DOULEIA
-    const reader = new FileReader()
+    const reader = new FileReader();
     
     
     reader.onload = function(){
