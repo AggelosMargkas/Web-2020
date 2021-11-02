@@ -17,9 +17,8 @@ chartColors = {
   gold: 'rgb(229, 196, 14)'
 
 }
-var myChart;
 
-
+window.myChart = new Chart();
 
 //ENARJI TOU ACTION
 function showData(str) {
@@ -35,7 +34,7 @@ function showData(str) {
 
     //ftianxei ena XMLHttpRequest object
     else {
-      if (myChart) myChart.destroy();
+     // if (myChart) myChart.destroy();
 
       var xmlhttp = new XMLHttpRequest();
 
@@ -51,7 +50,8 @@ function showData(str) {
 
 
         if(str == "1"){
-          
+
+
           $.ajax({
             'async': true,
             'global': false,
@@ -60,12 +60,14 @@ function showData(str) {
             'dataType': "json",
             'success': function(data) {
 
+                        
+          if(window.myChart!= null){
+            window.myChart.destroy();
+        }
+
             jsvar = data;
-            var myChart;
 
-            if (myChart) myChart.destroy();
-
-            var myChart = new Chart(ctx, {
+             window.myChart = new Chart(ctx, {
                 type: 'horizontalBar',
 
                 data: {
@@ -73,7 +75,7 @@ function showData(str) {
       
                   datasets: [{
                       label: 'Πλήθος χρηστών',
-                      backgroundColor: 'rgb(255, 99, 132)',
+                      backgroundColor: 'rgb(255, 200, 132)',
                       borderColor: 'rgb(255, 99, 132)',
                       data: [jsvar]
                   }]
@@ -85,9 +87,7 @@ function showData(str) {
                   },
                   title: {
                     display: true,
-                    text: 'Πλήθος Χρηστών',
-                    fontColor : 'white',
-                    fontSize: 25
+                    text: 'Πλήθος Χρηστών'
                   },
                   scales: {
                       yAxes: [{
@@ -103,6 +103,18 @@ function showData(str) {
                         }
                     }]
                   }
+                },
+                
+                plugins:{
+                  id: 'custom_canvas_background_color',
+                  beforeDraw: (myChart) => {
+                    const ctx = myChart.canvas.getContext('2d');
+                    ctx.save();
+                    ctx.globalCompositeOperation = 'destination-over';
+                    ctx.fillStyle = 'white';
+                    ctx.fillRect(0, 0, myChart.width, myChart.height);
+                    ctx.restore();
+                    }
                 }
           });
 
@@ -114,6 +126,8 @@ function showData(str) {
 
         else if(str == "2"){
 
+
+
   
           $.ajax({
             'async': true,
@@ -123,15 +137,18 @@ function showData(str) {
             'dataType': "json",
             'success': function(data) {
             
-              var myChart;
+
+
+              if(window.myChart!= null){
+                window.myChart.destroy();
+            }
 
               jsvar = data;
               console.log(jsvar);
-              if (myChart) myChart.destroy();
 
 
 
-              var myChart = new Chart(ctx, {
+             window.myChart = new Chart(ctx, {
                 type: 'bar',
 
                 data: {
@@ -160,9 +177,7 @@ function showData(str) {
                   },
                   title: {
                     display: true,
-                    text: 'Πλήθος εγγραφών ανά τύπο αίτησης',
-                    fontColor : 'white',
-                    fontSize: 25
+                    text: 'Πλήθος εγγραφών ανά τύπο αίτησης'
                   },
                   scales: {
                       xAxes: [{
@@ -172,6 +187,17 @@ function showData(str) {
                           }
                       }]
                   }
+                },
+                plugins:{
+                  id: 'custom_canvas_background_color',
+                  beforeDraw: (myChart) => {
+                    const ctx = myChart.canvas.getContext('2d');
+                    ctx.save();
+                    ctx.globalCompositeOperation = 'destination-over';
+                    ctx.fillStyle = 'white';
+                    ctx.fillRect(0, 0, myChart.width, myChart.height);
+                    ctx.restore();
+                    }
                 }
           });
 
@@ -187,6 +213,7 @@ function showData(str) {
       }
         else if(str == "3"){
 
+       
 
 
           $.ajax({
@@ -197,10 +224,12 @@ function showData(str) {
             'dataType': "json",
             'success': function(data) {
 
-              var myChart;
+              if(window.myChart!= null){
+                window.myChart.destroy();
+            }
 
               jsvar = data;
-              if (myChart) myChart.destroy();
+             // if (myChart) myChart.destroy();
 
               var status = [];
               var plithos = [];
@@ -211,7 +240,7 @@ function showData(str) {
                 plithos[i] = jsvar[i].plithosKwdikwn;
                }
           
-               var myChart = new Chart(ctx, {
+               window.myChart = new Chart(ctx, {
           
                type: 'bar',
 
@@ -242,9 +271,7 @@ function showData(str) {
               },
               title: {
                 display: true,
-                text: 'Κωδικοί Απόκρισης',
-                fontColor : 'white',
-                fontSize: 25
+                text: 'Κωδικοί Απόκρισης'
               },
               scales: {
                   xAxes: [{
@@ -254,6 +281,17 @@ function showData(str) {
                       }
                   }]
               }
+            },
+            plugins:{
+              id: 'custom_canvas_background_color',
+              beforeDraw: (myChart) => {
+                const ctx = myChart.canvas.getContext('2d');
+                ctx.save();
+                ctx.globalCompositeOperation = 'destination-over';
+                ctx.fillStyle = 'white';
+                ctx.fillRect(0, 0, myChart.width, myChart.height);
+                ctx.restore();
+                }
             }
       });
         
@@ -277,10 +315,14 @@ function showData(str) {
               jsvar = data;
              console.log(jsvar);
   
-             if (myChart) myChart.destroy();
+              
+             if(window.myChart!= null){
+              window.myChart.destroy();
+             }
 
-             var myChart = new Chart(ctx, {
-                type: 'horizontalBar',
+
+              window.myChart = new Chart(ctx, {
+               type: 'horizontalBar',
 
                 data: {
                   labels: ['Url'],
@@ -308,9 +350,7 @@ function showData(str) {
                   },
                   title: {
                     display: true,
-                    text: 'Πλήθος Μοναδικών Domain  ',
-                    fontColor : 'white',
-                    fontSize: 25
+                    text: 'Πλήθος Μοναδικών Domain  '
                   },
                   scales: {
                       yAxes: [{
@@ -326,7 +366,18 @@ function showData(str) {
                         }
                     }]
                   }
-                }
+                },
+              plugins:{
+                id: 'custom_canvas_background_color',
+                beforeDraw: (myChart) => {
+                  const ctx = myChart.canvas.getContext('2d');
+                  ctx.save();
+                  ctx.globalCompositeOperation = 'destination-over';
+                  ctx.fillStyle = 'white';
+                  ctx.fillRect(0, 0, myChart.width, myChart.height);
+                  ctx.restore();
+                  }
+              }
           });
 
 
@@ -351,11 +402,14 @@ function showData(str) {
               jsvar =data;
 
 
-              if (myChart) myChart.destroy();
+
+              if(window.myChart!= null){
+                window.myChart.destroy();
+            }
 
             console.log(jsvar);
   
-            var myChart = new Chart(ctx, {
+            window.myChart = new Chart(ctx, {
                 type: 'horizontalBar',
 
                 data: {
@@ -383,9 +437,7 @@ function showData(str) {
                   },
                   title: {
                     display: true,
-                    text: 'Πάροχοι μέσα στην βάση',
-                    fontColor : 'white',
-                    fontSize: 25
+                    text: 'Πάροχοι μέσα στην βάση'
                   },
                   scales: {
                     
@@ -396,7 +448,18 @@ function showData(str) {
                           }
                       }]
                   }
-                }
+                },
+              plugins:{
+                id: 'custom_canvas_background_color',
+                beforeDraw: (myChart) => {
+                  const ctx = myChart.canvas.getContext('2d');
+                  ctx.save();
+                  ctx.globalCompositeOperation = 'destination-over';
+                  ctx.fillStyle = 'white';
+                  ctx.fillRect(0, 0, myChart.width, myChart.height);
+                  ctx.restore();
+                  }
+              }
           });
 
 
@@ -423,7 +486,10 @@ function showData(str) {
             'success': function(data) {
 
             jsvar = data;
-            if (myChart) myChart.destroy();
+
+            if(window.myChart!= null){
+              window.myChart.destroy();
+             }
 
             var content = [];
             var ilikia = [];
@@ -435,7 +501,7 @@ function showData(str) {
             }
             
             
-            var chart = new Chart(ctx, {
+            window.myChart = new Chart(ctx, {
             type: 'bar',
 
             data: {
@@ -470,9 +536,7 @@ function showData(str) {
               },
               title: {
                 display: true,
-                text: 'Ανά Content Type',
-                fontColor : 'white',
-                fontSize: 25
+                text: 'Ανά Content Type'
               },
               scales: {
                   xAxes: [{
@@ -483,11 +547,20 @@ function showData(str) {
                       }
                   }]
               }
-            }
-        }
-      
-      
-      );
+            },
+          plugins:{
+            id: 'custom_canvas_background_color',
+            beforeDraw: (myChart) => {
+              const ctx = myChart.canvas.getContext('2d');
+              ctx.save();
+              ctx.globalCompositeOperation = 'destination-over';
+              ctx.fillStyle = 'white';
+              ctx.fillRect(0, 0, myChart.width, myChart.height);
+              ctx.restore();
+              }
+          }
+
+        });
           }});
 
         }
@@ -504,8 +577,10 @@ function showData(str) {
 
             jsvar = data;
 
+            if(window.myChart!= null){
+              window.myChart.destroy();
+            }
 
-            if (myChart) myChart.destroy();
 
             var content = [];
             var ilikia = [];
@@ -517,7 +592,7 @@ function showData(str) {
             }
             
             
-            var chart = new Chart(ctx, {
+            window.myChart = new Chart(ctx, {
             type: 'bar',
 
             data: {
@@ -552,9 +627,7 @@ function showData(str) {
               },
               title: {
                 display: true,
-                text: 'Ανά Content Type',
-                fontColor : 'white',
-                fontSize: 25
+                text: 'Ανά Content Type'
               },
               scales: {
                   xAxes: [{
@@ -571,11 +644,19 @@ function showData(str) {
                     }
                 }]
               }
-            }
-        }
-      
-      
-      );
+            },
+          plugins:{
+            id: 'custom_canvas_background_color',
+            beforeDraw: (myChart) => {
+              const ctx = myChart.canvas.getContext('2d');
+              ctx.save();
+              ctx.globalCompositeOperation = 'destination-over';
+              ctx.fillStyle = 'white';
+              ctx.fillRect(0, 0, myChart.width, myChart.height);
+              ctx.restore();
+              }
+          }
+        });
           }});
 
         }

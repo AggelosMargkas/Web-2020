@@ -19,32 +19,21 @@
       "name": "Max Grigorian",
       "email": "maxakawizard@gmail.com",
       "homepage": "http://wizardcat.com/"
-    },
-    {
-      "name": "ThePanz",
-      "email": "thepanz@gmail.com"
     }
   ],
   "require": {
-    "php": ">=7.1",
-    "ext-ctype": "*",
+    "php": "^5.4 | ^7.0",
     "ext-mbstring": "*"
   },
+
   "require-dev": {
-    "ext-json": "*"
+    "phpunit/phpunit": "~4.0"
   },
+
   "autoload": {
     "psr-4": {
       "JsonStreamingParser\\": "src",
       "JsonStreamingParser\\Test\\": "tests"
-    }
-  },
-  "config": {
-    "sort-packages": true
-  },
-  "extra": {
-    "branch-alias": {
-      "dev-master": "8.0-dev"
     }
   }
 }

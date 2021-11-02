@@ -1,34 +1,35 @@
 <?php
-
-declare(strict_types=1);
-
 namespace JsonStreamingParser\Listener;
 
-abstract class SubsetConsumerListener implements ListenerInterface
+use JsonStreamingParser\Listener;
+
+abstract class SubsetConsumerListener implements Listener
 {
     protected $keyValueStack;
-
-    /**
-     * @var string|int|null
-     */
     protected $key;
 
-    public function startDocument(): void
+    /**
+     * @param mixed $data
+     * @return boolean if data was consumed and can be discarded
+     */
+    abstract protected function consume($data);
+
+    public function startDocument()
     {
         $this->keyValueStack = [];
     }
 
-    public function endDocument(): void
+    public function endDocument()
     {
     }
 
-    public function startObject(): void
+    public function startObject()
     {
-        $this->keyValueStack[] = null === $this->key ? [[]] : [$this->key => []];
+        $this->keyValueStack[] = is_null($this->key) ? [[]] : [$this->key => []];
         $this->key = null;
     }
 
-    public function endObject(): void
+    public function endObject()
     {
         $keyValue = array_pop($this->keyValueStack);
         $obj = reset($keyValue);
@@ -40,22 +41,22 @@ abstract class SubsetConsumerListener implements ListenerInterface
         }
     }
 
-    public function startArray(): void
+    public function startArray()
     {
         $this->startObject();
     }
 
-    public function endArray(): void
+    public function endArray()
     {
         $this->endObject();
     }
 
-    public function key(string $key): void
+    public function key($key)
     {
         $this->key = $key;
     }
 
-    public function value($value): void
+    public function value($value)
     {
         $keyValue = array_pop($this->keyValueStack);
         $objKey = key($keyValue);
@@ -68,12 +69,8 @@ abstract class SubsetConsumerListener implements ListenerInterface
         $this->keyValueStack[] = $keyValue;
     }
 
-    public function whitespace(string $whitespace): void
+    public function whitespace($whitespace)
     {
+        // noop
     }
-
-    /**
-     * @return bool if data was consumed and can be discarded
-     */
-    abstract protected function consume($data);
 }

@@ -1,0 +1,59 @@
+<html>
+
+<head>
+  <title>Sign Up Form</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="register.css">
+  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Pirate_Flag_of_Jack_Rackham.svg/800px-Pirate_Flag_of_Jack_Rackham.svg.png">
+</head>
+
+<body>
+  <!-- header -->
+    <div class="header">
+      <h1>EL DORADO</h1>
+  </div>
+
+  <!-- left side -->
+    <div class="left">
+        <h1>Your HAR analyzer.</h1>
+        <p>The easiest way for tracking information between a web browser and a website.</p>
+    </div>
+
+    <!--right side sign up form -->
+  <div class="sign-up-form">
+    <h1> Let's sign up! </h1>
+    <form action = "registration.php" method="post">
+                <div class="txt_field">
+                    <input type="email" name="email" required>
+                    <span></span>
+                    <label>Email</label>
+                </div>
+
+                <div class="txt_field">
+                    <input type="text" name="username" required>
+                    <span></span>
+                    <label>Username</label>
+                </div>
+
+                <div class="txt_field">
+                    <input type="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}" title="Must contain at least one number, one uppercase and lowercase letter, one symbol and be at least 8 characters" required>
+                    <span></span>
+                    <label>Password</label>
+                </div>
+
+                 <input type="submit" value="Sign up">
+                 <div class="signup_link">Already have an account? <a href ="Welcome.php">Sign in</a></div> 
+            </form>
+
+  </div>
+  <script type="checkpsw.js"></script>
+
+
+  <!-- footer -->
+  <div class="footer">
+    <p> All copyrigths reserved. ©</p>
+  </div> 
+</body>
+
+</html>

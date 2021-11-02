@@ -1,15 +1,14 @@
 <?php
-
-declare(strict_types=1);
-
 namespace JsonStreamingParser\Listener;
+
+use JsonStreamingParser\Listener;
 
 /**
  * This basic geojson implementation of a listener simply constructs an in-memory
  * representation of the JSON document at the second level, this is useful so only
  * a single Feature will be kept in memory rather than the whole FeatureCollection.
  */
-class GeoJsonListener implements ListenerInterface
+class GeoJsonListener implements Listener
 {
     protected $json;
 
@@ -20,12 +19,13 @@ class GeoJsonListener implements ListenerInterface
     protected $level;
 
     /**
-     * @var callable
+     * @var Callable
      */
     protected $callback;
 
     /**
-     * @param callable $callback
+     *
+     * @param Callable $callback
      */
     public function __construct($callback = null)
     {
@@ -37,7 +37,7 @@ class GeoJsonListener implements ListenerInterface
         return $this->json;
     }
 
-    public function startDocument(): void
+    public function startDocument()
     {
         $this->stack = [];
         $this->level = 0;
@@ -46,23 +46,23 @@ class GeoJsonListener implements ListenerInterface
         $this->key = [];
     }
 
-    public function endDocument(): void
+    public function endDocument()
     {
         // w00t!
     }
 
-    public function startObject(): void
+    public function startObject()
     {
         $this->level++;
         $this->stack[] = [];
         // Reset the stack when entering the second level
-        if (2 === $this->level) {
+        if ($this->level == 2) {
             $this->stack = [];
             $this->key[$this->level] = null;
         }
     }
 
-    public function endObject(): void
+    public function endObject()
     {
         $this->level--;
         $obj = array_pop($this->stack);
@@ -73,30 +73,34 @@ class GeoJsonListener implements ListenerInterface
             $this->value($obj);
         }
         // Call the callback when returning to the second level
-        if (2 === $this->level && \is_callable($this->callback)) {
-            \call_user_func($this->callback, $this->json);
+        if ($this->level == 2 && is_callable($this->callback)) {
+            call_user_func($this->callback, $this->json);
         }
     }
 
-    public function startArray(): void
+    public function startArray()
     {
         $this->startObject();
     }
 
-    public function endArray(): void
+    public function endArray()
     {
         $this->endObject();
     }
 
-    public function key(string $key): void
+    /**
+     * @param string $key
+     */
+    public function key($key)
     {
         $this->key[$this->level] = $key;
     }
 
     /**
-     * Value may be a string, integer, boolean, null.
+     * Value may be a string, integer, boolean, null
+     * @param mixed $value
      */
-    public function value($value): void
+    public function value($value)
     {
         $obj = array_pop($this->stack);
         if (!empty($this->key[$this->level])) {
@@ -108,7 +112,8 @@ class GeoJsonListener implements ListenerInterface
         $this->stack[] = $obj;
     }
 
-    public function whitespace(string $whitespace): void
+    public function whitespace($whitespace)
     {
+        // do nothing
     }
 }

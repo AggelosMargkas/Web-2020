@@ -1,18 +1,6 @@
 //KSEKINAME ME TA CALLBACK GIA NA APROUME TA DEDOMENA TOU XRHSTH SXETIKA ME TIN IP TOU 
 //XRISIMOPOIOUME TO IP-API
 
-const successCallback = (position) =>{
-
-    console.log(position);
-
-};
-
-
-const errorCallback = (error) =>{
-    console.error(error);
-};
-
-navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
 
 
 //efarmozw to ip-api gia na parw ta network data mesw ths ip
@@ -81,7 +69,7 @@ input.addEventListener('change', function(e) {
     console.log("Arxeio pou mpike " + inputFileName);
    
     //XRISIMOPOIOUME TON FILE READER KAI ME TH SUNARTHSH ONLOAD KANOUME OLI THN DOULEIA
-    const reader = new FileReader();
+    const reader = new FileReader()
     
     
     reader.onload = function(){
@@ -280,7 +268,6 @@ function download(filename, dataShit){
 function downloadFile(blob, filename){
 
     const url = window.URL.createObjectURL(blob, filename);
-   //https://phppot.com/php/mysql-blob-using-php/
     const  a = document.createElement("a");
 
       a.href = url;

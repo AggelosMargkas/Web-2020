@@ -1,47 +1,46 @@
 <?php
-
-declare(strict_types=1);
-
 namespace JsonStreamingParser\Listener;
 
+use JsonStreamingParser\Listener;
+
 /**
- * Base listener which does nothing.
+ * Base listener which does nothing
  */
-class IdleListener implements ListenerInterface
+class IdleListener implements Listener
 {
-    public function startDocument(): void
+    public function startDocument()
     {
     }
 
-    public function endDocument(): void
+    public function endDocument()
     {
     }
 
-    public function startObject(): void
+    public function startObject()
     {
     }
 
-    public function endObject(): void
+    public function endObject()
     {
     }
 
-    public function startArray(): void
+    public function startArray()
     {
     }
 
-    public function endArray(): void
+    public function endArray()
     {
     }
 
-    public function key(string $key): void
+    public function key($key)
     {
     }
 
-    public function value($value): void
+    public function value($value)
     {
     }
 
-    public function whitespace(string $whitespace): void
+    public function whitespace($whitespace)
     {
     }
 }

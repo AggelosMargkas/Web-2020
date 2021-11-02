@@ -24,24 +24,24 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => 'dev-main',
-    'version' => 'dev-main',
+    'pretty_version' => '1.0.0+no-version-set',
+    'version' => '1.0.0.0',
     'aliases' => 
     array (
     ),
-    'reference' => '8143cd13fdf1ff232828090282d07f28a6ce6d37',
+    'reference' => NULL,
     'name' => '__root__',
   ),
   'versions' => 
   array (
     '__root__' => 
     array (
-      'pretty_version' => 'dev-main',
-      'version' => 'dev-main',
+      'pretty_version' => '1.0.0+no-version-set',
+      'version' => '1.0.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '8143cd13fdf1ff232828090282d07f28a6ce6d37',
+      'reference' => NULL,
     ),
     'halaxa/json-machine' => 
     array (
@@ -54,12 +54,12 @@ private static $installed = array (
     ),
     'salsify/json-streaming-parser' => 
     array (
-      'pretty_version' => 'v8.2.0',
-      'version' => '8.2.0.0',
+      'pretty_version' => 'v7.0',
+      'version' => '7.0.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '4ae5394136a037e09402ba8b48dbf4e20475e69d',
+      'reference' => 'a4d8d651f01864ac539b6a05c3c781906a56bd2e',
     ),
   ),
 );

@@ -4,8 +4,8 @@ body {
   margin: 0px;
   padding: 0%;
   background: linear-gradient(120deg, #020621, #fff8e7);
-  height: 100vh;
-  overflow: hidden;
+  height: 3000px;
+  overflow-y: scroll;
 }
 
 .container {
@@ -103,26 +103,8 @@ body {
   .sidenav a {font-size: 18px;}
 }
 
-/*css gia to upload button ton har*/
-.btn{
-  border: 1px solid #2b353b;
-  background: none;
-  padding: 100px 20px;
-  font-size: 20px;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  cursor: pointer;
-  margin: 10px;
-}
 
-.btn1,.btn2{
-  color:#020621;
 
-}
-.btn1:hover,.btn2:hover{
-
-  color: #020621;
-
-}
 
 /* Paragraphos gia to header*/
 
@@ -175,19 +157,43 @@ color: antiquewhite;
 
 }
 
-
-.myChartDiv {
-
-  margin: auto;
-  width: 50%;
-    padding: 10px;
-
+.Charttt {
+  position: relative;
+  width: 800px;
+  height: 800px;
+  left: 50px;
 }
 
-.Charttt{
+.info{
+  width:400px;
+  /*right: 250px;*/
+  margin:0;
+  border:1px solid #eeeeee;
+  box-shadow: 0 0 3px 0 #1B1B3B;
+  background: #ffffff;
+  padding:10px;
+  position: relative;
+  left: 200px;
+  top: 0px;
+}
 
-  margin: auto;
-  width: 50%;
-    padding: 10px;
+table{
+  border:1px solid #eeeeee;
+  border-collapse: collapse;
+  width:100%;
+  text-align: center;
+  color: #141E4D;
+}
 
+table th{
+  border:1px solid #eeeeee;
+  text-align:center;
+  color:#141E4D;
+  height:40px;
+}
+table td{
+  border:1px solid #eeeeee;
+  padding:5px;
+  text-align: center;
+  color: #141E4D;
 }

@@ -56,34 +56,28 @@
         },
         {
             "name": "salsify/json-streaming-parser",
-            "version": "v8.2.0",
-            "version_normalized": "8.2.0.0",
+            "version": "v7.0",
+            "version_normalized": "7.0.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/salsify/jsonstreamingparser.git",
-                "reference": "4ae5394136a037e09402ba8b48dbf4e20475e69d"
+                "reference": "a4d8d651f01864ac539b6a05c3c781906a56bd2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/salsify/jsonstreamingparser/zipball/4ae5394136a037e09402ba8b48dbf4e20475e69d",
-                "reference": "4ae5394136a037e09402ba8b48dbf4e20475e69d",
+                "url": "https://api.github.com/repos/salsify/jsonstreamingparser/zipball/a4d8d651f01864ac539b6a05c3c781906a56bd2e",
+                "reference": "a4d8d651f01864ac539b6a05c3c781906a56bd2e",
                 "shasum": ""
             },
             "require": {
-                "ext-ctype": "*",
                 "ext-mbstring": "*",
-                "php": ">=7.1"
+                "php": "^5.4 | ^7.0"
             },
             "require-dev": {
-                "ext-json": "*"
+                "phpunit/phpunit": "~4.0"
             },
-            "time": "2020-05-22T20:10:04+00:00",
+            "time": "2018-03-29T00:35:18+00:00",
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "8.0-dev"
-                }
-            },
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
@@ -97,22 +91,18 @@
             ],
             "authors": [
                 {
+                    "name": "Maxim Gnatenko",
+                    "email": "mgnatenko@gmail.com"
+                },
+                {
                     "name": "Rob Gonzalez",
                     "email": "rob@salsify.com",
                     "homepage": "http://salsify.com/"
                 },
                 {
-                    "name": "Maxim Gnatenko",
-                    "email": "mgnatenko@gmail.com"
-                },
-                {
                     "name": "Max Grigorian",
                     "email": "maxakawizard@gmail.com",
                     "homepage": "http://wizardcat.com/"
-                },
-                {
-                    "name": "ThePanz",
-                    "email": "thepanz@gmail.com"
                 }
             ],
             "description": "A streaming parser for JSON in PHP.",

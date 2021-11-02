@@ -1,6 +1,3 @@
-
-
-
 //ΜΕ ΤΙΝ ΙΔΙΑ ΛΟΓΙΚΙ ΜΕ ΤΟ ΩΙΕςΣΤΑΤΘΣ ΓΙΑ ΚΑΤΗΕ ΕΠΙΛΟΓΙ ΑΝΟΙΓΟΘΜΕ ΕΝΑ ΑΞΑΧ ΠΕΡΝΟΘΜΕ ΤΑ ΔΕΔΟΜΕΝΑ ΚΑΙ ΤΑ ΕΠΕΞΕΡΓΑΖΟΜΑΣΤΕ
 function trigerData(str) {
 
@@ -378,52 +375,20 @@ function canvasDailyKw(dataList, title, labelX, labelY) {
           }
         }]
       }
-    }
-  } );
-
-/*
-  var config = {
-
-
-    type: 'bar',
-  
-    data: {
-      labels: hourOfDay,
-      datasets: dataList
     },
-    options: {
-      backgroundColor: chartColors,
-      responsive: true,
-      title: {
-        display: true,
-        text: 'Daily Kw Object'
-      },
-      tooltips: {
-        mode: 'label',
-      },
-      hover: {
-        mode: 'nearest',
-        intersect: true
-      },
-      scales: {
-        xAxes: [{
-          display: true,
-          scaleLabel: {
-            display: true,
-            labelString: 'ΩΡΕΣ'
-          }
-        }],
-        yAxes: [{
-          display: true,
-          scaleLabel: {
-            display: true,
-            labelString: 'MXA'
-          }
-        }]
-      }
+    plugins:{
+      id: 'custom_canvas_background_color',
+      beforeDraw: (myChart) => {
+        const ctx = myChart.canvas.getContext('2d');
+        ctx.save();
+        ctx.globalCompositeOperation = 'destination-over';
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, myChart.width, myChart.height);
+        ctx.restore();
+        }
     }
-  };  
-*/
+  });
+
 
     
   }

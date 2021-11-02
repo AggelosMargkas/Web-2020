@@ -1,23 +1,18 @@
 
-body {
-    margin: 0px;
-    padding: 0%;
-    background: linear-gradient(120deg, #020621, #fff8e7);
-    height: 100vh;
-    overflow: hidden;
-  }
-
-
-h1{
-
-  color: rgb(199, 190, 190);
+h2 {
+  color: white;
   text-align: center;
+  padding: 0;
+  margin: 0;
+  font-family: Trebuchet MS;
+  font-weight: 500;
+  font-size: 20px;
 }
 
 
 .drop-zone {
   position: relative;
-  top: 45%;
+  top: 35%;
   left: 45%;
   transform: translate(-25%, 25%);
   max-width: 150px;
@@ -27,12 +22,12 @@ h1{
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  font-family: Trebuchet MS;
   font-weight: 500;
   font-size: 20px;
   cursor: pointer;
-  color: rgb(218, 205, 205);
-  border: 4px dashed rgb(199, 190, 190);
+  color: #D9E8F4;
+  border: 4px dashed white;
   border-radius: 10px;
 }
 
@@ -67,39 +62,63 @@ h1{
   text-align: center;
 }
 
+.drop-zone:hover {
+  background-color: #00687D;/*#2D3970;*/
+  color: white;
+}
+
 /* Style buttons */
 .locallyDownload {
-  background-color: rgb(113, 148, 182);
-  position: absolute;
+  background-color: #00687D;
+  position: relative;
+  transform: translate(-25%, 25%);
   border: none;
-  top: 70%;
-  left: 30%;
+  top: 150px;
+  left: 400px;
   color: white;
-  padding: 12px 40px;
+  padding: 12px 30px;
   cursor: pointer;
   font-size: 20px;
+  font-family: Trebuchet MS;
+  text-align: center;
 }
 
 /* Darker background on mouse-over */
 .locallyDownload:hover {
-  background-color: rgb(175, 181, 199);
+  background-color: #051426;
 }
 
 
 /* Style buttons */
 .uploadToSystem {
-  position: absolute;
-  top: 70%;
-  left: 60%;
-  background-color: DodgerBlue;
+  position: relative;
+  transform: translate(-25%, 25%);
+  top: 105px;
+  left: 950px;
+  background-color: #00687D;
   border: none;
   color: white;
   padding: 12px 40px;
   cursor: pointer;
   font-size: 20px;
+  font-family: Trebuchet MS;
+  text-align: center;
 }
 
 /* Darker background on mouse-over */
 .uploadToSystem:hover {
-  background-color: RoyalBlue;
+  background-color: #051426;
+}
+
+.footer1 {
+  left: 0;
+  bottom: 0;
+  width: 100%; 
+  height: 80px;
+  top: 920px;
+  padding-top: 30px;
+  text-align: center; 
+  background: #051426;
+  color: white;  
+  position: absolute;
 }

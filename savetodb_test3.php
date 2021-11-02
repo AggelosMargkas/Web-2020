@@ -1,8 +1,7 @@
 <?php
-
-
 ob_start();
-
+session_start();
+$username = $_SESSION['username'];
 require_once 'vendor/autoload.php';
 
 
@@ -15,11 +14,6 @@ use JsonStreamingParser\Listener;
 use JsonStreamingParser\Listener\ListenerInterface;
 use JsonStreamingParser\Test\Listener\TestListener;
 use \JsonMachine\JsonMachine;
-
-session_start();
-
-$usernamee = 'testuser1';
-
 
 $ipData = json_decode($_POST['Ips']);
 $serverIpData_visited = json_decode($_POST['serverIp_visited']);
@@ -34,21 +28,31 @@ $conn = new PDO("mysql:host=localhost;dbname=web", 'root', '');
 
 $con = mysqli_connect('localhost', 'root', '') or  die("Connect failed: %s\n" . $conn->error);
 
+///////////////////////////////////////////
+//gia to statistics
 
-echo sizeof($serverIpData_visited);
+$q_stats = $conn->prepare('UPDATE `statistics` SET recordSum = recordSum+1, lastUpload = CURRENT_DATE WHERE name = :username' );
+$q_stats->bindValue('username', $username);
+$q_stats->execute();
+
+
+///////////////////////////////////////////
+
+
+echo sizeof($serverIpData_visited);  //checking
 
 
 
 foreach ($serverIpData_visited as $key => $value) {
 
 
-    echo $value->serverLat_visited;
+    echo $value->serverLat_visited; //still checking
 }
 
 $stmt = $conn->prepare('insert into ipuserdata(username, ISP, serverIpUser, lat, lon) values(:username, :ISP, :serverIpUser, :lat, :lon)');
 
 
-$stmt->bindValue('username', 'iii');
+$stmt->bindValue('username', $username);
 $stmt->bindValue('ISP', $ipData[0]);
 $stmt->bindValue('serverIpUser', $ipData[1]);
 $stmt->bindValue('lat', $ipData[2]);
@@ -57,14 +61,13 @@ $stmt->bindValue('lon', $ipData[3]);
 
 $stmt->execute();
 
-
 foreach ($serverIpData_visited as $key => $value) {
 
 
     $stmt = $conn->prepare('insert into ip_visited_test(username, server_Ip, latitude, longitude	) values(:username, :server_Ip, :server_latitude, :server_longitude)');
 
 
-    $stmt->bindValue('username', 'Aggelos');
+    $stmt->bindValue('username', $username);
     $stmt->bindValue('server_Ip', $value->serverIp_visited);
     $stmt->bindValue('server_latitude', $value->serverLat_visited);
     $stmt->bindValue('server_longitude', $value->serverLon_visited);
@@ -72,8 +75,6 @@ foreach ($serverIpData_visited as $key => $value) {
 
     $stmt->execute();
 }
-
-
 
 /***************************************************************************************************************************************** */
 /*************************************************      REQUEST ENTRY    **************************************************************** */
@@ -125,7 +126,7 @@ foreach ($fruits as $entries => $value) {
 
         }
 
-        $stmt->bindValue('username', $usernamee);
+        $stmt->bindValue('username', $username);
         $stmt->bindValue('method', $whatever->request->method);
         $stmt->bindValue('url', $whatever->request->url);
         $stmt->bindValue('timings', $whatever->timings->wait);
@@ -202,7 +203,7 @@ foreach ($fruits as $entries => $value) {
 
         }
 
-        $stmt->bindValue('username', $usernamee);
+        $stmt->bindValue('username', $username);
         $stmt->bindValue('status', $whatever->response->status);
         $stmt->bindValue('statusText', $whatever->response->statusText);
         $stmt->bindValue('ISP', $ipData[0]);
@@ -218,17 +219,10 @@ foreach ($fruits as $entries => $value) {
         $stmt->execute();
     }
 }
-
-
-header("Location: DataUpload.html");
-
+/// message
+header("Location: DataUpload.php");
 ob_end_flush();
-
-echo '<script type="text/javascript">alert("Upload succesful!");</script>';
-
-
-
-
+//echo '<script type="text/javascript">alert("Upload succesful!");</script>';
 
 
 
